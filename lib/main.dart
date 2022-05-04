@@ -68,8 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
               TextField(
                 controller: inputReiheNr,
                 decoration: const InputDecoration(
-                  hintText: "Nummer",
-                  labelText: "Input Reihe",
+                  hintText: "Spalte",
+                  labelText: "Input Spalte",
                   labelStyle: TextStyle(fontSize: 24, color: Colors.black),
                   focusedBorder: InputBorder.none,
                   enabledBorder: InputBorder.none,
@@ -126,17 +126,31 @@ class _MyHomePageState extends State<MyHomePage> {
 //For fill;
     int reiheID = int.parse(reihe);
 
-
-
-    if(playerID % 2 == 0){
-      twoDList[][reihe] = "deneme";
+    if (isfull(reiheID)) {
+      print("Game Finished");
+      return;
+    } else {
+      String output = "";
+      if (playerID % 2 == 0) {
+        output = "x";
+      } else {
+        output = "0";
+      }
+      int row = 0;
+      while (row < 6 - 1 && twoDList[reiheID][row + 1] == null) {
+        row++;
+      }
+      twoDList[reiheID][reihe] = output;
     }
-    
-
     print(twoDList);
   }
-  
-  bool isfull(int reihe){
 
+  bool isfull(int reihe) {
+    for (int column = 0; column < 6; column++) {
+      if (twoDList[column][0] == null) {
+        return false;
+      }
+    }
+    return true;
   }
 }
