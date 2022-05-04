@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, unused_local_variable
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -48,13 +50,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController inputUsernameController = new TextEditingController();
-  TextEditingController inputPasswordController = new TextEditingController();
+  TextEditingController inputReiheNr = new TextEditingController();
   String getuName = "";
   String getPass = "";
-
+  int playerID = 0;
   @override
   Widget build(BuildContext context) {
+    createBoard();
     return Scaffold(
         appBar: AppBar(
           title: const Text("TextField Demo"),
@@ -64,10 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
             // ignore: prefer_const_literals_to_create_immutables
             children: [
               TextField(
-                controller: inputUsernameController,
+                controller: inputReiheNr,
                 decoration: const InputDecoration(
-                  hintText: "Your Name",
-                  labelText: "Name",
+                  hintText: "Nummer",
+                  labelText: "Input Reihe",
                   labelStyle: TextStyle(fontSize: 24, color: Colors.black),
                   focusedBorder: InputBorder.none,
                   enabledBorder: InputBorder.none,
@@ -77,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 enableSuggestions: false,
                 //style: TextStyle(decoration: TextDecoration.none),
               ),
-              TextField(
+              /*TextField(
                 controller: inputPasswordController,
                 decoration: const InputDecoration(
                   hintText: "Your password",
@@ -91,13 +93,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 enableSuggestions: false,
 
                 //style: TextStyle(decoration: TextDecoration.none),
-              ),
+              ),*/
               ElevatedButton(
                   onPressed: () {
-                    setState(() {
+                    /*setState(() {
                       getuName = inputUsernameController.text;
                       getPass = inputPasswordController.text;
-                    });
+                    });*/
+                    updateBoard(inputReiheNr.text, playerID);
+                    playerID = playerID + 1;
                   },
                   child: Text("GetPassword")),
               // ignore: unnecessary_null_comparison
@@ -106,5 +110,33 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ));
+  }
+
+  var twoDList;
+  void createBoard() {
+    int row = 6;
+    int col = 7;
+
+    this.twoDList = List.generate(
+        row, (i) => List.filled(col, "*", growable: false),
+        growable: false);
+  }
+
+  void updateBoard(String reihe, int playerNr) {
+//For fill;
+    int reiheID = int.parse(reihe);
+
+
+
+    if(playerID % 2 == 0){
+      twoDList[][reihe] = "deneme";
+    }
+    
+
+    print(twoDList);
+  }
+  
+  bool isfull(int reihe){
+
   }
 }
