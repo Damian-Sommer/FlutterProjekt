@@ -48,9 +48,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController inputController = new TextEditingController();
+  TextEditingController inputUsernameController = new TextEditingController();
   TextEditingController inputPasswordController = new TextEditingController();
-  String getvalue = "";
+  String getuName = "";
   String getPass = "";
 
   @override
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // ignore: prefer_const_literals_to_create_immutables
             children: [
               TextField(
-                controller: inputController,
+                controller: inputUsernameController,
                 decoration: const InputDecoration(
                   hintText: "Your Name",
                   labelText: "Name",
@@ -95,12 +95,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ElevatedButton(
                   onPressed: () {
                     setState(() {
+                      getuName = inputUsernameController.text;
                       getPass = inputPasswordController.text;
                     });
                   },
                   child: Text("GetPassword")),
               // ignore: unnecessary_null_comparison
-              Text(getvalue != null ? getvalue.toString() : "null"),
+              Text(getuName != null ? getuName.toString() : "null"),
               Text(getPass != null ? getPass.toString() : "null"),
             ],
           ),
