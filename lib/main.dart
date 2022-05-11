@@ -190,7 +190,12 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       column = int.parse(strColumn);
     } catch (Exception) {
-      message = "Gib eine Zahl ein zwischen 1 und 7!";
+      message = "Gib eine Zahl ein zwischen 0 und 7!";
+      return false;
+    }
+
+    if (column > 6 || column < 0) {
+      message = "Bitte gebe eien Zahl von 0 - 6 ein!";
       return false;
     }
 
