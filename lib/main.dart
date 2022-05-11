@@ -50,7 +50,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController inputReiheNr = new TextEditingController();
+  TextEditingController inputReiheNr = TextEditingController();
   String getuName = "";
   String board = "";
   String errorMessage = "";
@@ -109,26 +109,24 @@ class _MyHomePageState extends State<MyHomePage> {
                     setState(() {
                       if (updateBoard(inputReiheNr.text, playerID)) {
                         playerID = playerID + 1;
-                      };
-                      whoWon();
+                      }
+
                       outputBoard();
                       currentPlayerUpdate();
                     });
                   },
                   child: Text("Absenden")),
-                  Text("Player " + currentPlayer + "'s turn"),
-                  Text(message + "\n"),
-                  Text(board),
-
+              Text("Player " + currentPlayer + "'s turn"),
+              Text(message + "\n"),
+              Text(board),
             ],
           ),
         ));
   }
 
   void createBoard() {
-    this.twoDList = List.generate(
-        6, (i) => List.filled(7, "*", growable: false),
-        growable: false);
+    this.twoDList =
+        List.generate(6, (i) => List.filled(7, "*"), growable: false);
   }
 
   void outputBoard() {
@@ -152,29 +150,29 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  int whoWon() { //0 for player x and 1 for player o
+  int whoWon() {
+    //0 for player x and 1 for player o
     return 1;
   }
-  
+
   bool updateBoard(String strColumn, int playerNr) {
     int column;
     try {
-      column = int.parse(strColumn);
+      column = int.parse(strColumn)
     } catch (Exception) {
       message = "Gib eine Zahl ein zwischen 1 und 7!";
       return false;
     }
 
-    if (twoDList[column][0] != "*") {
+    if (this.twoDList[0][column] != "*") {
       return false;
     }
 
     int row = 0;
-    while (row < 5 && twoDList[column][row + 1] == "*") {
+    while (row < 5 && this.twoDList[row + 1][column] == "*") {
       row++;
     }
 
-    print(row);
     /*if (isfull(reiheID)) {
       print("Game Finished");
       return "Game Finished";
@@ -183,11 +181,10 @@ class _MyHomePageState extends State<MyHomePage> {
     String outputSymbol = "";
     if (playerID % 2 == 0) {
       outputSymbol = "x";
-      print(column);
     } else {
       outputSymbol = "0";
     }
-    twoDList[column][row] = outputSymbol;
+    this.twoDList[row][column] = outputSymbol;
     return true;
   }
 }
