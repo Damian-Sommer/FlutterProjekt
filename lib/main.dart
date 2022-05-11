@@ -116,14 +116,13 @@ class _MyHomePageState extends State<MyHomePage> {
               // ignore: unnecessary_null_comparison
               Text(board),
               Text(errorMessage),
-=======
                       currentPlayer = currentPlayerUpdate();
                     });
                   },
                   child: Text("Absenden")),
                   Text("Player " + currentPlayer + "'s turn"),
                   Text(board),
->>>>>>> 9bd6fa56e941fe3a3b8a6fc39c9ac9636d683d06
+
             ],
           ),
         ));
@@ -161,7 +160,6 @@ class _MyHomePageState extends State<MyHomePage> {
       if (strColumn == "") {
         return "Bitte gebe eine Nummer ein!";
       }
-=======
   String currentPlayerUpdate() {
     if (playerID == 0) {
       return "x";
@@ -176,47 +174,40 @@ class _MyHomePageState extends State<MyHomePage> {
   void updateBoard(String strColumn, int playerNr) {
     int column;
     try {
->>>>>>> 9bd6fa56e941fe3a3b8a6fc39c9ac9636d683d06
       column = int.parse(strColumn);
     } catch (Exception) {
       return "Bitte gebe eine Nummer ein!";
     }
 
     if (twoDList[column][0] != "*") {
-<<<<<<< HEAD
+
       playerID--;
       return "Diese Kolonne ist voll";
-=======
+
 
       return;
->>>>>>> 9bd6fa56e941fe3a3b8a6fc39c9ac9636d683d06
+
     }
 
     int row = 0;
     while (row < 6 - 1 && twoDList[column][row + 1] == "*") {
       row++;
     }
-<<<<<<< HEAD
+
     print(row);
     /*if (isfull(reiheID)) {
       print("Game Finished");
       return "Game Finished";
     } else {*/
-=======
->>>>>>> 9bd6fa56e941fe3a3b8a6fc39c9ac9636d683d06
 
     String outputSymbol = "";
     if (playerID % 2 == 0) {
       outputSymbol = "x";
-<<<<<<< HEAD
       print(column);
-=======
->>>>>>> 9bd6fa56e941fe3a3b8a6fc39c9ac9636d683d06
     } else {
       outputSymbol = "0";
     }
     twoDList[column][row] = outputSymbol;
-<<<<<<< HEAD
     /*String ausgabe = "";
     for (int i = 0; i < 5; i++) {
       for (int j = 0; j < 6; i++) {
@@ -236,7 +227,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return true;
   }*/
-=======
+
   }
->>>>>>> 9bd6fa56e941fe3a3b8a6fc39c9ac9636d683d06
 }
