@@ -56,6 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String errorMessage = "";
   String getPass = "";
   String currentPlayer = "x";
+  int currentPlayersColumn = -1;
+  int currentPlayersRow = -1;
   String message = "";
   bool firstTime = true;
   int playerID = 0;
@@ -110,7 +112,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       if (updateBoard(inputReiheNr.text, playerID)) {
                         playerID = playerID + 1;
                       }
-
+                      if (isWon(currentPlayersColumn, currentPlayersRow)) {
+                        print(currentPlayer + " won the game!");
+                      }
                       outputBoard();
                       currentPlayerUpdate();
                     });
@@ -155,8 +159,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void createBoard() {
-    this.twoDList =
-        List.generate(6, (i) => List.filled(7, "*"), growable: false);
+    this.twoDList = List.generate(6, (i) => List.filled(7, "*"), growable: false);
+        
+    /*for (int i = 2; i < 4; i++) {
+      twoDList[0][i] = "o";
+    }
+    twoDList[2][1] = "x";*/
   }
 
   void outputBoard() {
@@ -180,9 +188,92 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  int whoWon() {
-    //0 for player x and 1 for player o
-    return 1;
+  bool checkVertical(int column, int row) {
+        int minRow = row;
+        int maxRow = row;
+
+        while (minRow > 0 && twoDList[minRow - 1][column] == currentPlayer ) {
+            minRow--;
+        }
+        while (maxRow < 6 - 1 && twoDList[maxRow + 1][column] == currentPlayer) {
+            maxRow++;
+        }
+        if (maxRow - minRow + 1 >= 4) {
+            return true;
+        }
+
+        return false;
+    }
+
+    bool checkHorizontal(int column, int row) {
+        int minColumn = column;
+        int maxColumn = column;
+
+        while (minColumn > 0 && twoDList[row][minColumn - 1] == currentPlayer ) {
+            minColumn--;
+        }
+        while (maxColumn < 6 - 1 && twoDList[row][maxColumn + 1] == currentPlayer) {
+            maxColumn++;
+        }
+        print(maxColumn);
+        print(minColumn);
+        if (maxColumn - minColumn + 1 >= 4) {
+            return true;
+        }
+
+        return false;
+    }
+
+    bool checkDiagonalSlash(int column, int row) {
+        int minColumn = column;
+        int maxColumn = column;
+        int minRow = row;
+        int maxRow = row;
+
+        while (minColumn > 0 && maxRow < 6 - 1 && twoDList[maxRow + 1][minColumn - 1] == currentPlayer) {
+            minColumn--;
+            maxRow++;
+        }
+
+        while (maxColumn < 7 - 1 && minRow > 0 && twoDList[minRow - 1][maxColumn + 1] == currentPlayer) {
+            maxColumn++;
+            minRow--;
+        }
+        if (maxColumn - minColumn + 1 >= 4) {
+            return true;
+        }
+        return false;
+
+    }
+
+    bool checkDiagonalBackSlash(int column, int row) {
+        int numSame = 1;
+        int minColumn = column;
+        int maxColumn = column;
+        int minRow = row;
+        int maxRow = row;
+
+        while (minColumn > 0 && minRow > 0 && twoDList[minRow - 1][minColumn - 1] == currentPlayer) {
+            minColumn--;
+            minRow--;
+        }
+
+        while (maxColumn < 7 - 1 && maxRow < 6 - 1 && twoDList[maxRow + 1][maxColumn + 1] == currentPlayer) {
+            maxColumn++;
+            maxRow++;
+        }
+        if (maxColumn - minColumn + 1 >= 4) {
+            return true;
+        }
+        return false;
+
+    }
+
+  bool isWon(int column, int row) {
+    if (checkHorizontal(column, row) || checkVertical(column, row) || checkDiagonalSlash(column, row) || checkDiagonalBackSlash(column, row)) {
+      return true;
+    }
+    return false;
   }
 
   bool updateBoard(String strColumn, int playerNr) {
@@ -212,9 +303,11 @@ class _MyHomePageState extends State<MyHomePage> {
     if (playerID % 2 == 0) {
       outputSymbol = "x";
     } else {
-      outputSymbol = "0";
+      outputSymbol = "o";
     }
     this.twoDList[row][column] = outputSymbol;
+    this.currentPlayersColumn = column;
+    this.currentPlayersRow = row;
     return true;
   }
 }
