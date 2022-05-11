@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, unused_local_variable
+// ignore_for_file: deprecated_member_use, unused_local_variable, empty_catches
 
 import 'package:flutter/material.dart';
 
@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       getuName = inputUsernameController.text;
                       getPass = inputPasswordController.text;
                     });*/
-                    updateBoard(inputReiheNr.text, playerID);
+                    //getPass = updateBoard(inputReiheNr.text, playerID);
                     playerID = playerID + 1;
                   },
                   child: Text("GetPassword")),
@@ -122,35 +122,60 @@ class _MyHomePageState extends State<MyHomePage> {
         growable: false);
   }
 
-  void updateBoard(String reihe, int playerNr) {
+  String updateBoard(String strColumn, int playerNr) {
 //For fill;
-    int reiheID = int.parse(reihe);
-
-    if (isfull(reiheID)) {
-      print("Game Finished");
-      return;
-    } else {
-      String output = "";
-      if (playerID % 2 == 0) {
-        output = "x";
-      } else {
-        output = "0";
+    // ignore: prefer_conditional_assignment
+    /*if (reihe == "") {
+      reihe = "0";
+    }*/
+    int column;
+    try {
+      if (strColumn == "") {
+        return "Gebe bitte eine Nummer ein";
       }
-      int row = 0;
-      while (row < 6 - 1 && twoDList[reiheID][row + 1] == null) {
-        row++;
-      }
-      twoDList[reiheID][reihe] = output;
+      column = int.parse(strColumn);
+    } catch (Exception) {
+      return "Bitte gebe eine Nummer ein";
     }
-    print(twoDList);
-  }
+
+    if (twoDList[column][0] != "*") {
+      return "Game Finished";
+    }
+
+    int row = 0;
+    while (row < 6 - 1 && twoDList[column][row] == "*")
+      /*if (isfull(reiheID)) {
+      print("Game Finished");
+      return "Game Finished";
+    } else {*/
+      String output = "";
+    if (playerID % 2 == 0) {
+      output = "x";
+    } else {
+      output = "0";
+    }
+    int row = 0;
+    while (row < 6 - 1 && twoDList[reiheID][row + 1] == null) {
+      row++;
+    }
+    twoDList[reiheID][row] = output;
+    //}
+    String ausgabe = "";
+    for (int i = 0; i < 5; i++) {
+      for (int j = 0; j < 6; i++) {
+        ausgabe = ausgabe + twoDList[i][j];
+      }
+      ausgabe = ausgabe + "\n";
+    }
+    return ausgabe;
+  } /*
 
   bool isfull(int reihe) {
     for (int column = 0; column < 6; column++) {
-      if (twoDList[column][0] == null) {
+      if (twoDList[column][reihe] == "*") {
         return false;
       }
     }
     return true;
-  }
+  }*/
 }
