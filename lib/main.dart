@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, unused_local_variable, empty_catches, avoid_print
+// ignore_for_file: deprecated_member_use, unused_local_variable, empty_catches, avoid_print, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
@@ -116,9 +116,39 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
                   },
                   child: Text("Absenden")),
-              Text("Player " + currentPlayer + "'s turn"),
-              Text(message + "\n"),
-              Text(board),
+              Padding(
+                padding: EdgeInsets.only(bottom: 3),
+                child: Text(
+                  "Player " + currentPlayer + "'s turn",
+                  style: TextStyle(),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 3),
+                child: Text(
+                  "0 1 2 3 4 5 6",
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.black,
+                    decorationThickness: 2,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 4),
+                child: Text(
+                  board,
+                  style: TextStyle(fontSize: 15),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(),
+                child: Text(
+                  message + "\n",
+                  style: TextStyle(color: Color.fromARGB(255, 252, 33, 17)),
+                ),
+              ),
             ],
           ),
         ));
@@ -158,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool updateBoard(String strColumn, int playerNr) {
     int column;
     try {
-      column = int.parse(strColumn)
+      column = int.parse(strColumn);
     } catch (Exception) {
       message = "Gib eine Zahl ein zwischen 1 und 7!";
       return false;
