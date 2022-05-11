@@ -52,6 +52,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController inputReiheNr = new TextEditingController();
   String getuName = "";
+  String board = "";
   String getPass = "";
   int playerID = 0;
   var twoDList;
@@ -97,16 +98,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ),*/
               ElevatedButton(
                   onPressed: () {
-                    /*setState(() {
-                      getuName = inputUsernameController.text;
-                      getPass = inputPasswordController.text;
-                    });*/
-                    //getPass = updateBoard(inputReiheNr.text, playerID);
-                    playerID = playerID + 1;
+                    setState(() {
+                      updateBoard(inputReiheNr.text, playerID);
+                      board = outputBoard();
+                      playerID = playerID + 1;
+                    });
                   },
-                  child: Text("GetPassword")),
+                  child: Text("Absenden")),
               // ignore: unnecessary_null_comparison
-              Text(outputBoard()),
+              Text(board),
             ],
           ),
         ));
@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return ausgabe;
   }
 
-  String updateBoard(String strColumn, int playerNr) {
+  void updateBoard(String strColumn, int playerNr) {
 //For fill;
     // ignore: prefer_conditional_assignment
     /*if (reihe == "") {
@@ -141,15 +141,15 @@ class _MyHomePageState extends State<MyHomePage> {
     int column;
     try {
       if (strColumn == "") {
-        return "Gebe bitte eine Nummer ein";
+        return;
       }
       column = int.parse(strColumn);
     } catch (Exception) {
-      return "Bitte gebe eine Nummer ein";
+      return;
     }
 
     if (twoDList[column][0] != "*") {
-      return "Game Finished";
+      return;
     }
 
     int row = 0;
@@ -162,21 +162,21 @@ class _MyHomePageState extends State<MyHomePage> {
       return "Game Finished";
     } else {*/
 
-    String output = "";
+    String outputSimbol = "";
     if (playerID % 2 == 0) {
-      output = "x";
+      outputSimbol = "x";
     } else {
-      output = "0";
+      outputSimbol = "0";
     }
-    //twoDList[column][row] =
-    String ausgabe = "";
+    twoDList[column][row] = outputSimbol;
+    /*String ausgabe = "";
     for (int i = 0; i < 5; i++) {
       for (int j = 0; j < 6; i++) {
         ausgabe = ausgabe + twoDList[i][j];
       }
       ausgabe = ausgabe + "\n";
     }
-    return ausgabe;
+    return ausgabe;*/
   } /*
 
   bool isfull(int reihe) {
