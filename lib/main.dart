@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, unused_local_variable, empty_catches
+// ignore_for_file: deprecated_member_use, unused_local_variable, empty_catches, avoid_print
 
 import 'package:flutter/material.dart';
 
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController inputReiheNr = new TextEditingController();
   String getuName = "";
   String board = "";
-  String getPass = "";
+  String errorMessage = "";
   int playerID = 0;
   var twoDList;
   @override
@@ -99,14 +99,16 @@ class _MyHomePageState extends State<MyHomePage> {
               ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      updateBoard(inputReiheNr.text, playerID);
+                      errorMessage = updateBoard(inputReiheNr.text, playerID);
                       board = outputBoard();
                       playerID = playerID + 1;
+                      inputReiheNr.text = "";
                     });
                   },
                   child: Text("Absenden")),
               // ignore: unnecessary_null_comparison
               Text(board),
+              Text(errorMessage),
             ],
           ),
         ));
@@ -132,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return ausgabe;
   }
 
-  void updateBoard(String strColumn, int playerNr) {
+  String updateBoard(String strColumn, int playerNr) {
 //For fill;
     // ignore: prefer_conditional_assignment
     /*if (reihe == "") {
@@ -141,34 +143,36 @@ class _MyHomePageState extends State<MyHomePage> {
     int column;
     try {
       if (strColumn == "") {
-        return;
+        return "Bitte gebe eine Nummer ein!";
       }
       column = int.parse(strColumn);
     } catch (Exception) {
-      return;
+      return "Bitte gebe eine Nummer ein!";
     }
 
     if (twoDList[column][0] != "*") {
-      return;
+      playerID--;
+      return "Diese Kolonne ist voll";
     }
 
     int row = 0;
     while (row < 6 - 1 && twoDList[column][row + 1] == "*") {
       row++;
     }
-
+    print(row);
     /*if (isfull(reiheID)) {
       print("Game Finished");
       return "Game Finished";
     } else {*/
 
-    String outputSimbol = "";
+    String outputSymbol = "";
     if (playerID % 2 == 0) {
-      outputSimbol = "x";
+      outputSymbol = "x";
+      print(column);
     } else {
-      outputSimbol = "0";
+      outputSymbol = "0";
     }
-    twoDList[column][row] = outputSimbol;
+    twoDList[column][row] = outputSymbol;
     /*String ausgabe = "";
     for (int i = 0; i < 5; i++) {
       for (int j = 0; j < 6; i++) {
@@ -177,6 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ausgabe = ausgabe + "\n";
     }
     return ausgabe;*/
+    return "";
   } /*
 
   bool isfull(int reihe) {
