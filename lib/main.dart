@@ -55,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String board = "";
   String getPass = "";
   String currentPlayer = "x";
+  String message = "";
   int playerID = 0;
   var twoDList;
   @override
@@ -101,14 +102,16 @@ class _MyHomePageState extends State<MyHomePage> {
               ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      updateBoard(inputReiheNr.text, playerID);
+                      if (updateBoard(inputReiheNr.text, playerID)) {
+                        playerID = playerID + 1;
+                      };
                       board = outputBoard();
-                      playerID = playerID + 1;
                       currentPlayer = currentPlayerUpdate();
                     });
                   },
                   child: Text("Absenden")),
                   Text("Player " + currentPlayer + "'s turn"),
+                  Text(message + "\n"),
                   Text(board),
             ],
           ),
@@ -116,19 +119,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void createBoard() {
-    int row = 6;
-    int col = 7;
-
     this.twoDList = List.generate(
-        row, (i) => List.filled(col, "*", growable: false),
+        6, (i) => List.filled(7, "*", growable: false),
         growable: false);
   }
 
   String outputBoard() {
     String ausgabe = "";
     for (int i = 0; i < 6; i++) {
-      for (int j = 0; j < 5; j++) {
-        ausgabe += twoDList[i][j];
+      for (int j = 0; j < 7; j++) {
+        ausgabe += twoDList[i][j] + " ";
       }
       ausgabe += "\n";
     }
@@ -146,21 +146,21 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void updateBoard(String strColumn, int playerNr) {
+  bool updateBoard(String strColumn, int playerNr) {
     int column;
     try {
       column = int.parse(strColumn);
     } catch (Exception) {
-      return;
+      message = "Gib eine Zahl ein zwischen 1 und 7!";
+      return false;
     }
 
     if (twoDList[column][0] != "*") {
-
-      return;
+      return false;
     }
 
     int row = 0;
-    while (row < 6 - 1 && twoDList[column][row + 1] == "*") {
+    while (row < 5 && twoDList[column][row + 1] == "*") {
       row++;
     }
 
@@ -171,5 +171,6 @@ class _MyHomePageState extends State<MyHomePage> {
       outputSymbol = "0";
     }
     twoDList[column][row] = outputSymbol;
+    return true;
   }
 }
