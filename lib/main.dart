@@ -54,11 +54,13 @@ class _MyHomePageState extends State<MyHomePage> {
   String getuName = "";
   String board = "";
   String getPass = "";
+  String currentPlayer = "x";
   int playerID = 0;
   var twoDList;
   @override
   Widget build(BuildContext context) {
     createBoard();
+    board = outputBoard();
     return Scaffold(
         appBar: AppBar(
           title: const Text("TextField Demo"),
@@ -102,11 +104,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       updateBoard(inputReiheNr.text, playerID);
                       board = outputBoard();
                       playerID = playerID + 1;
+                      currentPlayer = currentPlayerUpdate();
                     });
                   },
                   child: Text("Absenden")),
-              // ignore: unnecessary_null_comparison
-              Text(board),
+                  Text("Player " + currentPlayer + "'s turn"),
+                  Text(board),
             ],
           ),
         ));
@@ -132,23 +135,27 @@ class _MyHomePageState extends State<MyHomePage> {
     return ausgabe;
   }
 
+  String currentPlayerUpdate() {
+    if (playerID == 0) {
+      return "x";
+    }
+    if (playerID % 2 == 0) {
+      return "x";
+    } else {
+      return "o";
+    }
+  }
+
   void updateBoard(String strColumn, int playerNr) {
-//For fill;
-    // ignore: prefer_conditional_assignment
-    /*if (reihe == "") {
-      reihe = "0";
-    }*/
     int column;
     try {
-      if (strColumn == "") {
-        return;
-      }
       column = int.parse(strColumn);
     } catch (Exception) {
       return;
     }
 
     if (twoDList[column][0] != "*") {
+
       return;
     }
 
@@ -157,34 +164,12 @@ class _MyHomePageState extends State<MyHomePage> {
       row++;
     }
 
-    /*if (isfull(reiheID)) {
-      print("Game Finished");
-      return "Game Finished";
-    } else {*/
-
-    String outputSimbol = "";
+    String outputSymbol = "";
     if (playerID % 2 == 0) {
-      outputSimbol = "x";
+      outputSymbol = "x";
     } else {
-      outputSimbol = "0";
+      outputSymbol = "0";
     }
-    twoDList[column][row] = outputSimbol;
-    /*String ausgabe = "";
-    for (int i = 0; i < 5; i++) {
-      for (int j = 0; j < 6; i++) {
-        ausgabe = ausgabe + twoDList[i][j];
-      }
-      ausgabe = ausgabe + "\n";
-    }
-    return ausgabe;*/
-  } /*
-
-  bool isfull(int reihe) {
-    for (int column = 0; column < 6; column++) {
-      if (twoDList[column][reihe] == "*") {
-        return false;
-      }
-    }
-    return true;
-  }*/
+    twoDList[column][row] = outputSymbol;
+  }
 }
