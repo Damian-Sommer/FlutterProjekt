@@ -57,11 +57,15 @@ class _MyHomePageState extends State<MyHomePage> {
   String getPass = "";
   String currentPlayer = "x";
   String message = "";
+  bool firstTime = true;
   int playerID = 0;
   var twoDList;
   @override
   Widget build(BuildContext context) {
-    createBoard();
+    if (firstTime) {
+      createBoard();
+      firstTime = false;
+    }
     outputBoard();
     return Scaffold(
         appBar: AppBar(
@@ -106,6 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       if (updateBoard(inputReiheNr.text, playerID)) {
                         playerID = playerID + 1;
                       };
+                      whoWon();
                       outputBoard();
                       currentPlayerUpdate();
                     });
@@ -145,6 +150,10 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       currentPlayer = "o";
     }
+  }
+
+  int whoWon() { //0 for player x and 1 for player o
+    return 1;
   }
   
   bool updateBoard(String strColumn, int playerNr) {
