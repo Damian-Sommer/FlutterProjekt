@@ -143,23 +143,22 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     int row = 0;
-    while (row < 6 - 1 && twoDList[column][row] == "*")
-      /*if (isfull(reiheID)) {
+    while (row < 6 - 1 && twoDList[column][row + 1] == "*") {
+      row++;
+    }
+
+    /*if (isfull(reiheID)) {
       print("Game Finished");
       return "Game Finished";
     } else {*/
-      String output = "";
+
+    String output = "";
     if (playerID % 2 == 0) {
       output = "x";
     } else {
       output = "0";
     }
-    int row = 0;
-    while (row < 6 - 1 && twoDList[reiheID][row + 1] == null) {
-      row++;
-    }
-    twoDList[reiheID][row] = output;
-    //}
+    twoDList[column][row] = 
     String ausgabe = "";
     for (int i = 0; i < 5; i++) {
       for (int j = 0; j < 6; i++) {
