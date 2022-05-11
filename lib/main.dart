@@ -53,12 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController inputReiheNr = new TextEditingController();
   String getuName = "";
   String board = "";
-<<<<<<< HEAD
   String errorMessage = "";
-=======
   String getPass = "";
   String currentPlayer = "x";
->>>>>>> 9bd6fa56e941fe3a3b8a6fc39c9ac9636d683d06
   int playerID = 0;
   var twoDList;
   @override
@@ -108,7 +105,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       errorMessage = updateBoard(inputReiheNr.text, playerID);
                       board = outputBoard();
                       playerID = playerID + 1;
-<<<<<<< HEAD
                       inputReiheNr.text = "";
                     });
                   },
@@ -148,7 +144,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return ausgabe;
   }
 
-<<<<<<< HEAD
   String updateBoard(String strColumn, int playerNr) {
 //For fill;
     // ignore: prefer_conditional_assignment
