@@ -54,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String getuName = "";
   String getPass = "";
   int playerID = 0;
+  var twoDList;
   @override
   Widget build(BuildContext context) {
     createBoard();
@@ -105,14 +106,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: Text("GetPassword")),
               // ignore: unnecessary_null_comparison
-              Text(getuName != null ? getuName.toString() : "null"),
-              Text(getPass != null ? getPass.toString() : "null"),
+              Text(outputBoard()),
             ],
           ),
         ));
   }
 
-  var twoDList;
   void createBoard() {
     int row = 6;
     int col = 7;
@@ -120,6 +119,17 @@ class _MyHomePageState extends State<MyHomePage> {
     this.twoDList = List.generate(
         row, (i) => List.filled(col, "*", growable: false),
         growable: false);
+  }
+
+  String outputBoard() {
+    String ausgabe = "";
+    for (int i = 0; i < 6; i++) {
+      for (int j = 0; j < 5; j++) {
+        ausgabe += twoDList[i][j];
+      }
+      ausgabe += "\n";
+    }
+    return ausgabe;
   }
 
   String updateBoard(String strColumn, int playerNr) {
@@ -158,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       output = "0";
     }
-    twoDList[column][row] = 
+    //twoDList[column][row] = 
     String ausgabe = "";
     for (int i = 0; i < 5; i++) {
       for (int j = 0; j < 6; i++) {
