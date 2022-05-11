@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     createBoard();
-    board = outputBoard();
+    outputBoard();
     return Scaffold(
         appBar: AppBar(
           title: const Text("TextField Demo"),
@@ -103,24 +103,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ElevatedButton(
                   onPressed: () {
                     setState(() {
-<<<<<<< HEAD
                       if (updateBoard(inputReiheNr.text, playerID)) {
                         playerID = playerID + 1;
                       };
-                      board = outputBoard();
-=======
-                      errorMessage = updateBoard(inputReiheNr.text, playerID);
-                      board = outputBoard();
-                      playerID = playerID + 1;
-                      inputReiheNr.text = "";
-                    });
-                  },
-                  child: Text("Absenden")),
-              // ignore: unnecessary_null_comparison
-              Text(board),
-              Text(errorMessage),
->>>>>>> 44d388b95115b71fca70d880cbbbb1b8318e79c1
-                      currentPlayer = currentPlayerUpdate();
+                      outputBoard();
+                      currentPlayerUpdate();
                     });
                   },
                   child: Text("Absenden")),
@@ -139,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
         growable: false);
   }
 
-  String outputBoard() {
+  void outputBoard() {
     String ausgabe = "";
     for (int i = 0; i < 6; i++) {
       for (int j = 0; j < 7; j++) {
@@ -147,56 +134,30 @@ class _MyHomePageState extends State<MyHomePage> {
       }
       ausgabe += "\n";
     }
-    return ausgabe;
+    board = ausgabe;
   }
 
-  String updateBoard(String strColumn, int playerNr) {
-//For fill;
-    // ignore: prefer_conditional_assignment
-    /*if (reihe == "") {
-      reihe = "0";
-    }*/
-    int column;
-    try {
-      if (strColumn == "") {
-        return "Bitte gebe eine Nummer ein!";
-      }
-  String currentPlayerUpdate() {
+  void currentPlayerUpdate() {
     if (playerID == 0) {
-      return "x";
-    }
-    if (playerID % 2 == 0) {
-      return "x";
+      currentPlayer = "x";
+    } else if (playerID % 2 == 0) {
+      currentPlayer = "x";
     } else {
-      return "o";
+      currentPlayer = "o";
     }
   }
-
+  
   bool updateBoard(String strColumn, int playerNr) {
     int column;
     try {
       column = int.parse(strColumn);
     } catch (Exception) {
-<<<<<<< HEAD
       message = "Gib eine Zahl ein zwischen 1 und 7!";
       return false;
     }
 
     if (twoDList[column][0] != "*") {
       return false;
-=======
-      return "Bitte gebe eine Nummer ein!";
-    }
-
-    if (twoDList[column][0] != "*") {
-
-      playerID--;
-      return "Diese Kolonne ist voll";
-
-
-      return;
-
->>>>>>> 44d388b95115b71fca70d880cbbbb1b8318e79c1
     }
 
     int row = 0;
@@ -218,29 +179,6 @@ class _MyHomePageState extends State<MyHomePage> {
       outputSymbol = "0";
     }
     twoDList[column][row] = outputSymbol;
-<<<<<<< HEAD
     return true;
-=======
-    /*String ausgabe = "";
-    for (int i = 0; i < 5; i++) {
-      for (int j = 0; j < 6; i++) {
-        ausgabe = ausgabe + twoDList[i][j];
-      }
-      ausgabe = ausgabe + "\n";
-    }
-    return ausgabe;*/
-    return "";
-  } /*
-
-  bool isfull(int reihe) {
-    for (int column = 0; column < 6; column++) {
-      if (twoDList[column][reihe] == "*") {
-        return false;
-      }
-    }
-    return true;
-  }*/
-
->>>>>>> 44d388b95115b71fca70d880cbbbb1b8318e79c1
   }
 }
