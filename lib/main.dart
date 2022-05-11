@@ -168,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       output = "0";
     }
-    //twoDList[column][row] = 
+    //twoDList[column][row] =
     String ausgabe = "";
     for (int i = 0; i < 5; i++) {
       for (int j = 0; j < 6; i++) {
