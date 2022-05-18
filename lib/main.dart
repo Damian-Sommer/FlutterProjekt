@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
     outputBoard();
     return Scaffold(
         appBar: AppBar(
-          title: const Text("TextField Demo"),
+          title: const Text("4 Gewinnt"),
         ),
         body: Center(
           child: Column(
