@@ -91,21 +91,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 enableSuggestions: false,
                 //style: TextStyle(decoration: TextDecoration.none),
               ),
-              /*TextField(
-                controller: inputPasswordController,
-                decoration: const InputDecoration(
-                  hintText: "Your password",
-                  labelText: "Password",
-                  labelStyle: TextStyle(fontSize: 15, color: Colors.black),
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                ),
-                keyboardType: TextInputType.visiblePassword,
-                autocorrect: false,
-                enableSuggestions: false,
-
-                //style: TextStyle(decoration: TextDecoration.none),
-              ),*/
               ElevatedButton(
                   onPressed: () {
                     setState(() {
