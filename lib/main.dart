@@ -111,9 +111,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     setState(() {
                       if (updateBoard(inputReiheNr.text, playerID)) {
                         playerID = playerID + 1;
-                      }
-                      if (isWon(currentPlayersColumn, currentPlayersRow)) {
-                        print(currentPlayer + " won the game!");
+                        if (isWon(currentPlayersColumn, currentPlayersRow)) {
+                          print(currentPlayer + " won the game!");
+                        }
                       }
                       outputBoard();
                       currentPlayerUpdate();
@@ -159,8 +159,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void createBoard() {
-    this.twoDList = List.generate(6, (i) => List.filled(7, "*"), growable: false);
-        
+    this.twoDList =
+        List.generate(6, (i) => List.filled(7, "*"), growable: false);
+
     /*for (int i = 2; i < 4; i++) {
       twoDList[0][i] = "o";
     }
@@ -189,88 +190,97 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   bool checkVertical(int column, int row) {
-        int minRow = row;
-        int maxRow = row;
+    int minRow = row;
+    int maxRow = row;
 
-        while (minRow > 0 && twoDList[minRow - 1][column] == currentPlayer ) {
-            minRow--;
-        }
-        while (maxRow < 6 - 1 && twoDList[maxRow + 1][column] == currentPlayer) {
-            maxRow++;
-        }
-        if (maxRow - minRow + 1 >= 4) {
-            return true;
-        }
-
-        return false;
+    while (minRow > 0 && twoDList[minRow - 1][column] == currentPlayer) {
+      minRow--;
+    }
+    while (maxRow < 6 - 1 && twoDList[maxRow + 1][column] == currentPlayer) {
+      maxRow++;
+    }
+    if (maxRow - minRow + 1 >= 4) {
+      return true;
     }
 
-    bool checkHorizontal(int column, int row) {
-        int minColumn = column;
-        int maxColumn = column;
+    return false;
+  }
 
-        while (minColumn > 0 && twoDList[row][minColumn - 1] == currentPlayer ) {
-            minColumn--;
-        }
-        while (maxColumn < 6 - 1 && twoDList[row][maxColumn + 1] == currentPlayer) {
-            maxColumn++;
-        }
-        print(maxColumn);
-        print(minColumn);
-        if (maxColumn - minColumn + 1 >= 4) {
-            return true;
-        }
+  bool checkHorizontal(int column, int row) {
+    int minColumn = column;
+    int maxColumn = column;
 
-        return false;
+    while (minColumn > 0 && twoDList[row][minColumn - 1] == currentPlayer) {
+      minColumn--;
+    }
+    while (maxColumn < 6 - 1 && twoDList[row][maxColumn + 1] == currentPlayer) {
+      maxColumn++;
+    }
+    print(maxColumn);
+    print(minColumn);
+    if (maxColumn - minColumn + 1 >= 4) {
+      return true;
     }
 
-    bool checkDiagonalSlash(int column, int row) {
-        int minColumn = column;
-        int maxColumn = column;
-        int minRow = row;
-        int maxRow = row;
+    return false;
+  }
 
-        while (minColumn > 0 && maxRow < 6 - 1 && twoDList[maxRow + 1][minColumn - 1] == currentPlayer) {
-            minColumn--;
-            maxRow++;
-        }
+  bool checkDiagonalSlash(int column, int row) {
+    int minColumn = column;
+    int maxColumn = column;
+    int minRow = row;
+    int maxRow = row;
 
-        while (maxColumn < 7 - 1 && minRow > 0 && twoDList[minRow - 1][maxColumn + 1] == currentPlayer) {
-            maxColumn++;
-            minRow--;
-        }
-        if (maxColumn - minColumn + 1 >= 4) {
-            return true;
-        }
-        return false;
-
+    while (minColumn > 0 &&
+        maxRow < 6 - 1 &&
+        twoDList[maxRow + 1][minColumn - 1] == currentPlayer) {
+      minColumn--;
+      maxRow++;
     }
 
-    bool checkDiagonalBackSlash(int column, int row) {
-        int numSame = 1;
-        int minColumn = column;
-        int maxColumn = column;
-        int minRow = row;
-        int maxRow = row;
-
-        while (minColumn > 0 && minRow > 0 && twoDList[minRow - 1][minColumn - 1] == currentPlayer) {
-            minColumn--;
-            minRow--;
-        }
-
-        while (maxColumn < 7 - 1 && maxRow < 6 - 1 && twoDList[maxRow + 1][maxColumn + 1] == currentPlayer) {
-            maxColumn++;
-            maxRow++;
-        }
-        if (maxColumn - minColumn + 1 >= 4) {
-            return true;
-        }
-        return false;
-
+    while (maxColumn < 7 - 1 &&
+        minRow > 0 &&
+        twoDList[minRow - 1][maxColumn + 1] == currentPlayer) {
+      maxColumn++;
+      minRow--;
     }
+    if (maxColumn - minColumn + 1 >= 4) {
+      return true;
+    }
+    return false;
+  }
+
+  bool checkDiagonalBackSlash(int column, int row) {
+    int numSame = 1;
+    int minColumn = column;
+    int maxColumn = column;
+    int minRow = row;
+    int maxRow = row;
+
+    while (minColumn > 0 &&
+        minRow > 0 &&
+        twoDList[minRow - 1][minColumn - 1] == currentPlayer) {
+      minColumn--;
+      minRow--;
+    }
+
+    while (maxColumn < 7 - 1 &&
+        maxRow < 6 - 1 &&
+        twoDList[maxRow + 1][maxColumn + 1] == currentPlayer) {
+      maxColumn++;
+      maxRow++;
+    }
+    if (maxColumn - minColumn + 1 >= 4) {
+      return true;
+    }
+    return false;
+  }
 
   bool isWon(int column, int row) {
-    if (checkHorizontal(column, row) || checkVertical(column, row) || checkDiagonalSlash(column, row) || checkDiagonalBackSlash(column, row)) {
+    if (checkHorizontal(column, row) ||
+        checkVertical(column, row) ||
+        checkDiagonalSlash(column, row) ||
+        checkDiagonalBackSlash(column, row)) {
       return true;
     }
     return false;
@@ -278,6 +288,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool updateBoard(String strColumn, int playerNr) {
     int column;
+    if (strColumn == null) {
+      message = "Gib eine Zahl ein zwischen 0 und 7!";
+      return false;
+    }
     try {
       column = int.parse(strColumn);
     } catch (Exception) {
