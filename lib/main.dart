@@ -93,14 +93,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 enableSuggestions: false,
                 //style: TextStyle(decoration: TextDecoration.none),
               ),
-              Text("Spieler x: " + playerXPoints.toString() + "\nSpieler o: " + playerOPoints.toString()),
+              Text("Spieler x: " +
+                  playerXPoints.toString() +
+                  "\nSpieler o: " +
+                  playerOPoints.toString()),
               ElevatedButton(
                   onPressed: () {
                     setState(() {
                       if (updateBoard(inputReiheNr.text, playerID)) {
                         playerID = playerID + 1;
                         if (isWon(currentPlayersColumn, currentPlayersRow)) {
-                          print("Spieler " + currentPlayer + " hat das Spiel gewonnen!");
+                          print("Spieler " +
+                              currentPlayer +
+                              " hat das Spiel gewonnen!");
                           switch (currentPlayer) {
                             case "x":
                               playerXPoints++;
@@ -121,10 +126,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
                   },
                   child: Text("Absenden")),
-                ElevatedButton(
+              ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      print("Das Spiel wurde neugestartet");
+                      print("Das Spiel wurde neu gestartet");
                       playerOPoints = 0;
                       playerXPoints = 0;
                       playerID = 0;
@@ -262,7 +267,9 @@ class _MyHomePageState extends State<MyHomePage> {
     int maxRow = row;
 
     while (true) {
-      if (minCol > 0 && maxRow < 5 && twoDList[maxRow + 1][minCol - 1] == currentPlayer) {
+      if (minCol > 0 &&
+          maxRow < 5 &&
+          twoDList[maxRow + 1][minCol - 1] == currentPlayer) {
         minCol--;
         maxRow++;
       } else {
@@ -270,7 +277,9 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
     while (true) {
-      if (maxCol < 6 && minRow > 0 && twoDList[minRow - 1][maxCol + 1] == currentPlayer) {
+      if (maxCol < 6 &&
+          minRow > 0 &&
+          twoDList[minRow - 1][maxCol + 1] == currentPlayer) {
         maxCol++;
         minRow--;
       } else {
@@ -290,9 +299,11 @@ class _MyHomePageState extends State<MyHomePage> {
     int maxCol = col;
     int minRow = row;
     int maxRow = row;
-    
+
     while (true) {
-      if (minCol > 0 && minRow > 0 && twoDList[minRow - 1][minCol - 1] == currentPlayer) {
+      if (minCol > 0 &&
+          minRow > 0 &&
+          twoDList[minRow - 1][minCol - 1] == currentPlayer) {
         minCol--;
         minRow--;
       } else {
@@ -300,7 +311,9 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
     while (true) {
-      if (maxCol < 6 && maxRow < 5 && twoDList[maxRow + 1][maxCol + 1] == currentPlayer) {
+      if (maxCol < 6 &&
+          maxRow < 5 &&
+          twoDList[maxRow + 1][maxCol + 1] == currentPlayer) {
         maxCol++;
         maxRow++;
       } else {
@@ -315,7 +328,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   bool isWon(int col, int row) {
-    if (checkHorizontal(col, row) || checkVertical(col, row) || checkDiagonalSlash(col, row) || checkDiagonalBackSlash(col, row)) {
+    if (checkHorizontal(col, row) ||
+        checkVertical(col, row) ||
+        checkDiagonalSlash(col, row) ||
+        checkDiagonalBackSlash(col, row)) {
       return true;
     }
     return false;
@@ -335,7 +351,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     if (column > 6 || column < 0) {
-      message = "Bitte gebe eien Zahl von 0 - 6 ein!";
+      message = "Bitte gebe eine Zahl von 0 - 6 ein!";
       return false;
     }
 
