@@ -203,98 +203,122 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  bool checkVertical(int column, int row) {
+  bool checkVertical(int col, int row) {
+    int min = row;
+    int max = row;
+
+    while (true) {
+      if (min > 0 && twoDList[min - 1][col] == currentPlayer) {
+        min--;
+      } else {
+        break;
+      }
+    }
+    while (true) {
+      if (max < 5 && twoDList[max + 1][col] == currentPlayer) {
+        max++;
+      } else {
+        break;
+      }
+    }
+
+    if (max - min >= 3) {
+      return true;
+    }
+
+    return false;
+  }
+
+  bool checkHorizontal(int col, int row) {
+    int min = col;
+    int max = col;
+
+    while (true) {
+      if (min > 0 && twoDList[row][min - 1] == currentPlayer) {
+        min--;
+      } else {
+        break;
+      }
+    }
+    while (true) {
+      if (max < 5 && twoDList[row][max + 1] == currentPlayer) {
+        max++;
+      } else {
+        break;
+      }
+    }
+
+    if (max - min >= 3) {
+      return true;
+    }
+
+    return false;
+  }
+
+  bool checkDiagonalSlash(int col, int row) {
+    int minCol = col;
+    int maxCol = col;
     int minRow = row;
     int maxRow = row;
 
-    while (minRow > 0 && twoDList[minRow - 1][column] == currentPlayer) {
-      minRow--;
+    while (true) {
+      if (minCol > 0 && maxRow < 5 && twoDList[maxRow + 1][minCol - 1] == currentPlayer) {
+        minCol--;
+        maxRow++;
+      } else {
+        break;
+      }
     }
-    while (maxRow < 6 - 1 && twoDList[maxRow + 1][column] == currentPlayer) {
-      maxRow++;
-    }
-    if (maxRow - minRow + 1 >= 4) {
-      return true;
-    }
-
-    return false;
-  }
-
-  bool checkHorizontal(int column, int row) {
-    int minColumn = column;
-    int maxColumn = column;
-
-    while (minColumn > 0 && twoDList[row][minColumn - 1] == currentPlayer) {
-      minColumn--;
-    }
-    while (maxColumn < 6 - 1 && twoDList[row][maxColumn + 1] == currentPlayer) {
-      maxColumn++;
-    }
-    print(maxColumn);
-    print(minColumn);
-    if (maxColumn - minColumn + 1 >= 4) {
-      return true;
+    while (true) {
+      if (maxCol < 6 && minRow > 0 && twoDList[minRow - 1][maxCol + 1] == currentPlayer) {
+        minCol++;
+        maxRow--;
+      } else {
+        break;
+      }
     }
 
-    return false;
-  }
-
-  bool checkDiagonalSlash(int column, int row) {
-    int minColumn = column;
-    int maxColumn = column;
-    int minRow = row;
-    int maxRow = row;
-
-    while (minColumn > 0 &&
-        maxRow < 6 - 1 &&
-        twoDList[maxRow + 1][minColumn - 1] == currentPlayer) {
-      minColumn--;
-      maxRow++;
-    }
-
-    while (maxColumn < 7 - 1 &&
-        minRow > 0 &&
-        twoDList[minRow - 1][maxColumn + 1] == currentPlayer) {
-      maxColumn++;
-      minRow--;
-    }
-    if (maxColumn - minColumn + 1 >= 4) {
+    if (maxCol - minCol >= 3) {
       return true;
     }
     return false;
   }
 
-  bool checkDiagonalBackSlash(int column, int row) {
+  bool checkDiagonalBackSlash(int col, int row) {
     int numSame = 1;
-    int minColumn = column;
-    int maxColumn = column;
+    int minCol = col;
+    int maxCol = col;
     int minRow = row;
     int maxRow = row;
-
-    while (minColumn > 0 &&
-        minRow > 0 &&
-        twoDList[minRow - 1][minColumn - 1] == currentPlayer) {
-      minColumn--;
-      minRow--;
+    
+    while (true) {
+      if (minCol > 0 && minRow > 0 && twoDList[minRow - 1][minCol - 1] == currentPlayer) {
+        minCol--;
+        minRow--;
+      } else {
+        break;
+      }
+    }
+    while (true) {
+      if (maxCol < 6 && maxRow < 5 && twoDList[maxRow + 1][maxCol + 1] == currentPlayer) {
+        minCol++;
+        minRow++;
+      } else {
+        break;
+      }
     }
 
-    while (maxColumn < 7 - 1 &&
-        maxRow < 6 - 1 &&
-        twoDList[maxRow + 1][maxColumn + 1] == currentPlayer) {
-      maxColumn++;
-      maxRow++;
-    }
-    if (maxColumn - minColumn + 1 >= 4) {
+    if (maxCol - minCol >= 3) {
       return true;
     }
     return false;
   }
 
-  bool isWon(int column, int row) {
-    if (checkHorizontal(column, row) ||
-        checkVertical(column, row) ||
-        checkDiagonalSlash(column, row) ||
-        checkDiagonalBackSlash(column, row)) {
+  bool isWon(int col, int row) {
+    if (checkHorizontal(col, row) ||
+        checkVertical(col, row) ||
+        checkDiagonalSlash(col, row) ||
+        checkDiagonalBackSlash(col, row)) {
       return true;
     }
     return false;
