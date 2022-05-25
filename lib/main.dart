@@ -123,6 +123,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       }
                       outputBoard();
                       currentPlayerUpdate();
+                      if (checkDraw()) {
+                        print("Es ist unentschieden!");
+                        message = "Es ist unentschieden!";
+                      }
                     });
                   },
                   child: Text("Absenden")),
@@ -136,6 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       createBoard();
                       outputBoard();
                       currentPlayerUpdate();
+                      message = "";
                     });
                   },
                   child: Text("Neustarten")),
@@ -206,6 +211,15 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       currentPlayer = "o";
     }
+  }
+
+  bool checkDraw() {
+    for (int i = 0; i < 7; i++) {
+      if (twoDList[0][i] == "*") {
+        return false;
+      }
+    }
+    return true;
   }
 
   bool checkVertical(int col, int row) {
