@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       if (updateBoard(inputReiheNr.text, playerID)) {
                         playerID = playerID + 1;
                         if (isWon(currentPlayersColumn, currentPlayersRow)) {
-                          print(currentPlayer + " won the game!");
+                          print("Spieler " + currentPlayer + " hat das Spiel gewonnen!");
                           switch (currentPlayer) {
                             case "x":
                               playerXPoints++;
