@@ -61,6 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String message = "";
   bool firstTime = true;
   int playerID = 0;
+  int playerXPoints = 0;
+  int playerOPoints = 0;
   var twoDList;
   @override
   Widget build(BuildContext context) {
@@ -91,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 enableSuggestions: false,
                 //style: TextStyle(decoration: TextDecoration.none),
               ),
+              Text("Spieler x: " + playerXPoints.toString() + "\nSpieler o: " + playerOPoints.toString()),
               ElevatedButton(
                   onPressed: () {
                     setState(() {
@@ -98,6 +101,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         playerID = playerID + 1;
                         if (isWon(currentPlayersColumn, currentPlayersRow)) {
                           print(currentPlayer + " won the game!");
+                          switch (currentPlayer) {
+                            case "x":
+                              playerXPoints++;
+                              break;
+                            case "o":
+                              playerOPoints++;
+                              break;
+                            default:
+                          }
+                          playerID = 0;
+                          createBoard();
+                          outputBoard();
+                          currentPlayerUpdate();
                         }
                       }
                       outputBoard();
@@ -105,10 +121,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
                   },
                   child: Text("Absenden")),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      print("Das Spiel wurde neugestartet");
+                      playerOPoints = 0;
+                      playerXPoints = 0;
+                      playerID = 0;
+                      createBoard();
+                      outputBoard();
+                      currentPlayerUpdate();
+                    });
+                  },
+                  child: Text("Neustarten")),
               Padding(
                 padding: EdgeInsets.only(bottom: 3),
                 child: Text(
-                  "Player " + currentPlayer + "'s turn",
+                  "Spieler " + currentPlayer + " ist dran",
                   style: TextStyle(),
                 ),
               ),
