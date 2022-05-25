@@ -271,8 +271,8 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     while (true) {
       if (maxCol < 6 && minRow > 0 && twoDList[minRow - 1][maxCol + 1] == currentPlayer) {
-        minCol++;
-        maxRow--;
+        maxCol++;
+        minRow--;
       } else {
         break;
       }
@@ -301,8 +301,8 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     while (true) {
       if (maxCol < 6 && maxRow < 5 && twoDList[maxRow + 1][maxCol + 1] == currentPlayer) {
-        minCol++;
-        minRow++;
+        maxCol++;
+        maxRow++;
       } else {
         break;
       }
@@ -315,10 +315,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   bool isWon(int col, int row) {
-    if (checkHorizontal(col, row) ||
-        checkVertical(col, row) ||
-        checkDiagonalSlash(col, row) ||
-        checkDiagonalBackSlash(col, row)) {
+    if (checkHorizontal(col, row) || checkVertical(col, row) || checkDiagonalSlash(col, row) || checkDiagonalBackSlash(col, row)) {
       return true;
     }
     return false;
