@@ -186,10 +186,12 @@ class _MyHomePageState extends State<MyHomePage> {
     this.twoDList =
         List.generate(6, (i) => List.filled(7, "*"), growable: false);
 
-    /*for (int i = 2; i < 4; i++) {
+    /*
+    for (int i = 2; i < 4; i++) {
       twoDList[0][i] = "o";
     }
-    twoDList[2][1] = "x";*/
+    twoDList[2][1] = "x";
+    */
   }
 
   void outputBoard() {
